@@ -37,7 +37,7 @@ public class Student {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = this.name;
     }
 
     public String getEmail() {
