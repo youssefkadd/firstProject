@@ -10,12 +10,9 @@ import java.util.Optional;
 @Service
 public class StudentService {
 
+    @Autowired
     private StudentRepository studentRepository;
 
-    @Autowired
-    public StudentService(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
 
     public List<Student> getStudents(){
         return studentRepository.findAll();
@@ -32,11 +29,9 @@ public class StudentService {
 
     @Transactional
     public void updateStudent(Long id, String name) {
-        Optional<Student> studentOptional = studentRepository.findById(id);
-        studentOptional.ifPresent(student -> {
+        Student student = studentRepository.findById(id).orElseThrow();
             if (name != null && name.length() > 0 && !student.getName().equals(name)) {
                 student.setName(name);
             }
-        });
     }
 }
